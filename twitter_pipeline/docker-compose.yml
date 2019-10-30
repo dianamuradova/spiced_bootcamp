@@ -1,0 +1,27 @@
+version: '3'
+services:
+  tweet_collector:
+    build: tweet_collector/
+    links:
+    - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+    - "27015:27017"
+
+  etl_job:
+    build: etl_job/
+    links:
+    - mongodb
+    - postgres
+
+  postgres:
+    image: postgres
+    ports:
+    - "5555:5432"
+
+  slack_bot:
+    build: slack_bot/
+    links:
+    - postgres
