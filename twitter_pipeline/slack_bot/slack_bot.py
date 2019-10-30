@@ -19,7 +19,7 @@ if __name__ == '__main__':
         row = list(results)[0]
         text, sentiment, ts = row
 
-        token = "xoxb-683255253206-730168799762-mTWGiLYbZ2QwmkIM7htkznoP"
+        token = ""
         client = slack.WebClient(token=token)
 
         #response = client.chat_postMessage(channel='#slack_bot', text=f'Tweet:\n```{text}```\n*Sentiment:* {sentiment}\n*Time:* {ts}')
