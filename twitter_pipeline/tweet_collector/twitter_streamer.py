@@ -5,9 +5,9 @@ import json
 import logging
 import pymongo
 
-#connect to MongoDB (global constants preferrably are in CAPITALS)
-CLIENT = pymongo.MongoClient('mongodb') #all we need is the service name from docker_compose
-DB = CLIENT.tweets #create and use a database called tweets
+
+CLIENT = pymongo.MongoClient('mongodb') 
+DB = CLIENT.tweets 
 
 def authenticate():
     """Function for handling Twitter Authentication"""
@@ -18,23 +18,17 @@ def authenticate():
 
 def load_tweet_into_mongo(tweet):
     DB.tweet_data.insert(tweet)
-    #insert into a collection
+
 
 
 class TwitterListener(StreamListener):
-
-    # def __init__(self):
-    #     ###DEFINE YOUR OWN CLASS VARIABLES HERE
-
-
 
     def on_data(self, data):
 
         """Whatever we put in this method defines what is done with
         every single tweet as it is intercepted in real-time"""
 
-        t = json.loads(data) #t is just a regular python dictionary.
-
+        t = json.loads(data)
 
 
         if 'extended_tweet' in t:
@@ -54,10 +48,9 @@ class TwitterListener(StreamListener):
             t['retweet_count']}
 
 
-            logging.critical('\n\n\nNEW TWEET INCOMING: ' + tweet['text']) #eventually this will be some function that stores it
-        #into MongoDB
-
-        #insert_into_mongo(tweet) the goal for tomorrow
+            logging.critical('\n\n\nNEW TWEET INCOMING: ' + tweet['text']) 
+            
+    
             load_tweet_into_mongo(tweet)
             logging.critical('\n\n\nSUCCESSFULLY DUMPED INTO MONGO!')
 
@@ -70,8 +63,7 @@ class TwitterListener(StreamListener):
 
 if __name__ == '__main__':
 
-    #Whatever we write down here will get executed when we run:
-    # "python twitter_streamer.py"
+  
 
     auth = authenticate()
     listener = TwitterListener()
