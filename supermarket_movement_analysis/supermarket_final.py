@@ -1,9 +1,8 @@
-
 import pandas as pd
 import numpy as np
 import random as rm
 import datetime as dt
-monday_df = pd.read_csv('/Users/diana/Desktop/wip/week_9/supermarket_data/monday.csv', sep = ";")
+monday_df = pd.read_csv('/Users/diana/Desktop/wip/week_9/supermarket_data/monday.csv', sep=";")
 tuesday_df = pd.read_csv("/Users/diana/Desktop/wip/week_9/supermarket_data/tuesday.csv", sep = ";")
 wednesday_df = pd.read_csv("/Users/diana/Desktop/wip/week_9/supermarket_data/wednesday.csv", sep = ";")
 thursday_df = pd.read_csv("/Users/diana/Desktop/wip/week_9/supermarket_data/thursday.csv", sep = ";")
@@ -15,7 +14,7 @@ df = pd.concat([monday_df, tuesday_df, wednesday_df, thursday_df, friday_df], ig
 df["date"] = pd.to_datetime(df["timestamp"], unit = 'ns')
 
 df['weekday'] = df['date'].dt.weekday_name
-df = df.drop(['timestamp'], axis = 1)
+df = df.drop(['timestamp'], axis=1)
 
 
 df["customer_unique"] = df["customer_no"].map(str) + df["weekday"]
@@ -120,7 +119,7 @@ class Customer:
             self.location_list.append(new_location)
         return self.location_list
 
-    def state(self):
+    def get_state(self):
         if self.location == 'checkout':
             self.state = 'churn'
         else:
@@ -128,9 +127,9 @@ class Customer:
 
         return self.state
 
-    def time_spent(self):
+    def get_time_spent(self):
         self.time_spent = len(self.location_list)
-
+        
         return self.time_spent
 
 
